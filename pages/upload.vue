@@ -33,7 +33,7 @@
           @click="toggleForm"
           type="button"
         >
-          Gửi đơn hàng
+          Upload & Nhập thông tin đơn hàng
         </button>
       </div>
       <transition
@@ -108,10 +108,7 @@
               <div class="mt-6 relative flex-1 px-4 sm:px-6">
                 <!-- Replace with your content -->
                 <div class="absolute inset-0 px-4 sm:px-6">
-                  <div
-                    class="h-full border-2 border-dashed border-gray-200"
-                    aria-hidden="true"
-                  >
+                  <div class="h-full" aria-hidden="true">
                     <form class="w-full max-w-lg" ref="form">
                       <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
@@ -122,13 +119,17 @@
                             Họ Tên
                           </label>
                           <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            :class="{ 'border-red-500': !form.name }"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-name"
                             type="text"
                             placeholder="Nguyễn Văn A"
                             v-model.trim="form.name"
                           />
-                          <p class="text-red-500 text-xs italic">
+                          <p
+                            v-if="!form.name"
+                            class="text-red-500 text-xs italic"
+                          >
                             Không được bỏ trống
                           </p>
                         </div>
@@ -142,11 +143,18 @@
                             Số điện thoại
                           </label>
                           <input
+                            :class="{ 'border-red-500': !form.phone }"
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-phone"
                             type="text"
                             v-model.trim="form.phone"
                           />
+                          <p
+                            v-if="!form.phone"
+                            class="text-red-500 text-xs italic"
+                          >
+                            Không được bỏ trống
+                          </p>
                         </div>
                       </div>
                       <div class="flex flex-wrap -mx-3 mb-2">
@@ -158,10 +166,17 @@
                             Địa chỉ
                           </label>
                           <textarea
+                            :class="{ 'border-red-500': !form.address }"
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-address"
                             v-model.trim="form.address"
                           ></textarea>
+                          <p
+                            v-if="!form.address"
+                            class="text-red-500 text-xs italic"
+                          >
+                            Không được bỏ trống
+                          </p>
                         </div>
                       </div>
                       <div class="flex flex-wrap -mx-3 mb-6">
@@ -173,11 +188,18 @@
                             Email
                           </label>
                           <input
+                            :class="{ 'border-red-500': !form.email }"
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-email"
                             type="email"
                             v-model.trim="form.email"
                           />
+                          <p
+                            v-if="!form.email"
+                            class="text-red-500 text-xs italic"
+                          >
+                            Không được bỏ trống
+                          </p>
                         </div>
                       </div>
                       <div class="flex flex-wrap -mx-3 mb-2">
@@ -253,12 +275,64 @@
                         </tr>
                       </tbody>
                     </table>
+                    <div
+                      v-if="showError"
+                      class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                      role="alert"
+                    >
+                      <strong class="font-bold">Có lỗi!</strong>
+                      <span class="block sm:inline"
+                        >Xin vui lòng kiểm tra lại thông tin.</span
+                      >
+                      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg
+                          class="fill-current h-6 w-6 text-red-500"
+                          role="button"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <title>Close</title>
+                          <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                     <button
+                      v-if="!orderPlaced"
                       class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl min-w-full"
                       type="button"
                       @click="submitForm"
+                      :disabled="loading"
                     >
-                      Gửi
+                      <svg
+                        v-if="loading"
+                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          class="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          stroke-width="4"
+                        ></circle>
+                        <path
+                          class="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path></svg
+                      >Gửi
+                    </button>
+                    <button
+                      v-if="orderPlaced"
+                      class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:green-blue-500 rounded mt-24 max-w-6xl min-w-full"
+                      type="button"
+                    >
+                      Đặt hàng thành công
                     </button>
                   </div>
                 </div>
@@ -295,7 +369,10 @@ export default {
         note: "",
         pictures: []
       },
-      price: 50000
+      price: 50000,
+      showError: false,
+      loading: false,
+      orderPlaced: false
     };
   },
   computed: {
@@ -315,19 +392,26 @@ export default {
   },
   methods: {
     submitForm() {
-      console.log(this.fileRecords);
-      this.form.pictures = this.fileRecords.map(file => {
-        return file.upload.data.fileUrl;
-      });
-      console.log(this.form);
-      axios
-        .post("http://localhost:3001/sendmail", this.form)
-        .then(response => {
-          console.log("Success");
-        })
-        .catch(error => {
-          console.error(error);
+      if (this.validateForm()) {
+        this.showError = true;
+      } else {
+        this.showError = false;
+        this.loading = true;
+        this.form.pictures = this.fileRecords.map(file => {
+          return file.upload.data.fileUrl;
         });
+        axios
+          .post("http://localhost:3001/sendmail", this.form)
+          .then(response => {
+            console.log("Success");
+            this.loading = false;
+            this.orderPlaced = true;
+          })
+          .catch(error => {
+            console.error(error);
+            this.loading = false;
+          });
+      }
     },
     toggleForm() {
       this.showForm = !this.showForm;
@@ -369,6 +453,15 @@ export default {
       //     return file.upload.data;
       //   });
       this.fileRecords = [];
+    },
+    validateForm() {
+      if (this.form.name) {
+        return false;
+      }
+      if (this.form.phone) return false;
+      if (this.form.address) return false;
+      if (this.form.email) return false;
+      return true;
     }
   }
 };
