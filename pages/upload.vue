@@ -353,7 +353,7 @@ export default {
   data() {
     return {
       showForm: false,
-      uploadUrl: "http://localhost:3001/upload",
+      uploadUrl: "https://api.minapix.vn/upload",
       fileRecords: [],
       fileRecordsForUpload: [],
       filesUploaded: [],
@@ -401,7 +401,7 @@ export default {
           return file.upload.data.fileUrl;
         });
         axios
-          .post("http://localhost:3001/sendmail", this.form)
+          .post("https://api.minapix.vn/sendmail", this.form)
           .then(response => {
             console.log("Success");
             this.loading = false;
