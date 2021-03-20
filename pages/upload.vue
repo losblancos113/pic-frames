@@ -27,15 +27,14 @@
           @select="filesSelected($event)"
           ref="imgFileAgent"
         ></vue-file-agent>
-
-        <button
-          class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl"
-          @click="toggleForm"
-          type="button"
-        >
-          Upload & Nhập thông tin đơn hàng
-        </button>
       </div>
+      <button
+        class="absolute bottom-0 w-full z-40 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl"
+        @click="toggleForm"
+        type="button"
+      >
+        Nhập thông tin đơn hàng
+      </button>
       <transition
         name="slide-over"
         enter-active-class="animated slideInRight"
@@ -43,7 +42,7 @@
       >
         <section
           v-if="showForm"
-          class="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+          class="absolute inset-y-0 right-0 max-w-full flex z-50"
           aria-labelledby="slide-over-heading"
         >
           <!--
@@ -67,35 +66,9 @@
             From: "opacity-100"
             To: "opacity-0"
         -->
+
             <div
-              class="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4"
-            >
-              <button
-                class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                @click="toggleForm"
-                type="button"
-              >
-                <span class="sr-only">Close panel</span>
-                <!-- Heroicon name: outline/x -->
-                <svg
-                  class="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div
-              class="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll"
+              class="h-full w-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll"
             >
               <div class="px-4 sm:px-6">
                 <h2
@@ -250,6 +223,18 @@
                           <td
                             class="border-double border-4 border-light-blue-500"
                           >
+                            Tạm tính
+                          </td>
+                          <td
+                            class="border-double border-4 border-light-blue-500"
+                          >
+                            {{ (fileRecords.length * price) | numFormat }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            class="border-double border-4 border-light-blue-500"
+                          >
                             Chiết khấu
                           </td>
                           <td
@@ -268,7 +253,7 @@
                             class="border-double border-4 border-light-blue-500"
                           >
                             {{
-                              (fileRecords.length * price * discount)
+                              (fileRecords.length * price * (1 - discount))
                                 | numFormat
                             }}
                           </td>
@@ -298,42 +283,76 @@
                         </svg>
                       </span>
                     </div>
-                    <button
-                      v-if="!orderPlaced"
-                      class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl min-w-full"
-                      type="button"
-                      @click="submitForm"
-                      :disabled="loading"
-                    >
-                      <svg
-                        v-if="loading"
-                        class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          class="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          stroke-width="4"
-                        ></circle>
-                        <path
-                          class="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path></svg
-                      >Gửi
-                    </button>
-                    <button
-                      v-if="orderPlaced"
-                      class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:green-blue-500 rounded mt-24 max-w-6xl min-w-full"
-                      type="button"
-                    >
-                      Đặt hàng thành công
-                    </button>
+                    <div class="grid grid-cols-2 gap-1">
+                      <div class="col-5">
+                        <button
+                          class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded mt-24 max-w-6xl min-w-full"
+                          type="button"
+                          @click="toggleForm"
+                          :disabled="loading"
+                        >
+                          <svg
+                            v-if="loading"
+                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path></svg
+                          >Huỷ
+                        </button>
+                      </div>
+                      <div class="col-5">
+                        <button
+                          v-if="!orderPlaced"
+                          class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl min-w-full"
+                          type="button"
+                          @click="submitForm"
+                          :disabled="loading"
+                        >
+                          <svg
+                            v-if="loading"
+                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              class="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              stroke-width="4"
+                            ></circle>
+                            <path
+                              class="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path></svg
+                          >Gửi
+                        </button>
+                        <button
+                          v-if="orderPlaced"
+                          class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:green-blue-500 rounded mt-24 max-w-6xl min-w-full"
+                          type="button"
+                        >
+                          Đặt hàng thành công
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- /End replace -->
@@ -353,7 +372,7 @@ export default {
   data() {
     return {
       showForm: false,
-      uploadUrl: "https://api.minapix.vn/upload",
+      uploadUrl: `${this.$config.baseAPIURL}/upload`,
       fileRecords: [],
       fileRecordsForUpload: [],
       filesUploaded: [],
@@ -401,7 +420,7 @@ export default {
           return file.upload.data.fileUrl;
         });
         axios
-          .post("https://api.minapix.vn/sendmail", this.form)
+          .post(`${this.$config.baseAPIURL}/sendmail`, this.form)
           .then(response => {
             console.log("Success");
             this.loading = false;
@@ -430,7 +449,7 @@ export default {
         var k = this.fileRecords.indexOf(fileRecord);
         if (k !== -1) this.fileRecords.splice(k, 1);
       } else {
-        if (confirm("Are you sure you want to delete?")) {
+        if (confirm("Bạn có chắc muốn xoá?")) {
           // this.$refs.imgFileAgent.deleteFileRecord(fileRecord); // will trigger 'delete' event
         }
       }

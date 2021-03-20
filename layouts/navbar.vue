@@ -9,6 +9,7 @@
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             aria-controls="mobile-menu"
             aria-expanded="false"
+            @click="toggleMenu"
           >
             <span class="sr-only">Open main menu</span>
             <!-- Icon when menu is closed. -->
@@ -24,6 +25,7 @@
               viewBox="0 0 24 24"
               stroke="currentColor"
               aria-hidden="true"
+              v-if="!openMenu"
             >
               <path
                 stroke-linecap="round"
@@ -45,6 +47,7 @@
               viewBox="0 0 24 24"
               stroke="currentColor"
               aria-hidden="true"
+              v-if="openMenu"
             >
               <path
                 stroke-linecap="round"
@@ -74,7 +77,7 @@
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a
-                href="#"
+                href="/"
                 class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Trang chủ</a
               >
@@ -95,11 +98,11 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="sm:hidden" id="mobile-menu">
+    <div v-if="openMenu" class="sm:hidden" id="mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
-          href="#"
+          href="/"
           class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
           >Trang chủ</a
         >
@@ -120,7 +123,17 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  data() {
+    return {
+      openMenu: false
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.openMenu = !this.openMenu;
+    }
+  }
 };
 </script>
 

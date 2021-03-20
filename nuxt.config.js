@@ -45,5 +45,16 @@ export default {
   modules: ["@neneos/nuxt-animate.css"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+  publicRuntimeConfig: {
+    baseAPIURL:
+      process.env.NODE_ENV === "production"
+        ? "https://api.minapix.vn"
+        : "http://localhost:3001"
+  },
+
+  server: {
+    host: "0.0.0.0"
+  }
 };
