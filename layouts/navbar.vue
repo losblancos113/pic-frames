@@ -86,7 +86,7 @@
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a
                 href="/"
-                class="bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Trang chủ</a
               >
               <a
@@ -122,7 +122,7 @@
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
           href="/"
-          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >Trang chủ</a
         >
         <a
@@ -150,7 +150,8 @@ export default {
   components: { FaqComponent },
   data() {
     return {
-      openMenu: false
+      openMenu: false,
+      selected: 1
     };
   },
   methods: {
