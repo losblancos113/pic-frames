@@ -1,5 +1,7 @@
 # pic-frames
 
+[![Deployment status from DeployBot](https://hmtz.deploybot.com/badge/13023224084300/189959.svg)](https://deploybot.com)
+
 ## Build Setup
 
 ```bash
