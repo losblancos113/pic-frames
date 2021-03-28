@@ -286,7 +286,12 @@
                     <div class="grid grid-cols-2 gap-1">
                       <div class="col-5">
                         <button
+                          v-if="!orderPlaced"
                           class="bg-gray-500 hover:bg-gray-400 text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded mt-24 max-w-6xl min-w-full"
+                          :class="{
+                            'opacity-50': loading,
+                            'cursor-not-allowed': loading
+                          }"
                           type="button"
                           @click="toggleForm"
                           :disabled="loading"
@@ -321,6 +326,10 @@
                           type="button"
                           @click="submitForm"
                           :disabled="loading"
+                          :class="{
+                            'opacity-50': loading,
+                            'cursor-not-allowed': loading
+                          }"
                         >
                           <svg
                             v-if="loading"
