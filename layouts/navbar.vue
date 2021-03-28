@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-800">
+  <nav class="bg-gray-100">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -64,35 +64,54 @@
           <div class="flex-shrink-0 flex items-center">
             <img
               class="block lg:hidden h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-              alt="Workflow"
+              :src="require('~/assets/images/logo.png')"
             />
             <img
               class="hidden lg:block h-8 w-auto"
+              :src="require('~/assets/images/logo.png')"
+            />
+            <!-- <img
+              class="block lg:hidden h-8 w-auto"
+              src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+              alt="Workflow"
+            /> -->
+            <!-- <img
+              class="hidden lg:block h-8 w-auto"
               src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
               alt="Workflow"
-            />
+            /> -->
           </div>
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a
                 href="/"
-                class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Trang chủ</a
               >
               <a
+                @click="showFaqDialog"
                 href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >FAQ</a
               >
               <a
                 href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                class="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Liên hệ</a
               >
             </div>
           </div>
+        </div>
+        <div
+          class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+        >
+          <button
+            class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            @click="navigateToUploadPage"
+          >
+            <span>Tải ảnh lên</span>
+          </button>
         </div>
       </div>
     </div>
@@ -107,6 +126,7 @@
           >Trang chủ</a
         >
         <a
+          @click="showFaqDialog"
           href="#"
           class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >FAQ</a
@@ -118,12 +138,16 @@
         >
       </div>
     </div>
+
+    <FaqComponent />
   </nav>
 </template>
 
 <script>
+import FaqComponent from "../components/faq.vue";
 export default {
   name: "Navbar",
+  components: { FaqComponent },
   data() {
     return {
       openMenu: false
@@ -132,6 +156,12 @@ export default {
   methods: {
     toggleMenu() {
       this.openMenu = !this.openMenu;
+    },
+    showFaqDialog() {
+      this.$modal.show("faq-modal");
+    },
+    navigateToUploadPage() {
+      this.$router.push({ name: "upload" });
     }
   }
 };

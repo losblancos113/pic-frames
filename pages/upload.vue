@@ -29,7 +29,7 @@
         ></vue-file-agent>
       </div>
       <button
-        class="absolute bottom-0 w-full z-40 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl"
+        class="w-bottom-button absolute bottom-0 md:bottom-3 md:left-1/2  z-40 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mt-24 max-w-6xl"
         @click="toggleForm"
         type="button"
       >
@@ -486,4 +486,16 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.w-bottom-button {
+  width: 100%;
+  margin-left: 0%;
+}
+
+@media only screen and (min-width: 768px) {
+  .w-bottom-button {
+    width: 25%;
+    margin-left: -12.5%;
+  }
+}
+</style>

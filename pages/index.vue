@@ -1,6 +1,14 @@
 <template>
   <div class="main h-full">
-    <div class="container sm:h-full mt-24 mx-auto">
+    <div class="container mx-auto mt-5 flex-col justify-between">
+      <div class="block mb-5 max-h-full">
+        <youtube
+          class="max-h-full"
+          :video-id="'TDhMqkiIp70'"
+          :player-vars="playerVars"
+          ref="youtube"
+        ></youtube>
+      </div>
       <vue-glide :autoplay="true" :gap="30" :animationDuration="2000">
         <vue-glide-slide v-for="i in 7" :key="i">
           <img
@@ -27,7 +35,7 @@
         </template> -->
       </vue-glide>
     </div>
-    <div class="mt-24 flex justify-center">
+    <div class="md:hidden mt-24 flex justify-center">
       <button
         class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
         @click="navigateToUploadPage"
@@ -59,7 +67,11 @@ export default {
     [GlideSlide.name]: GlideSlide
   },
   data() {
-    return {};
+    return {
+      playerVars: {
+        autoplay: 1
+      }
+    };
   },
   methods: {
     navigateToUploadPage() {
