@@ -1,33 +1,55 @@
 <template>
   <modal name="faq-modal" :adaptive="true">
     <div class="Accordion">
-      <expander title="Giá cho mỗi khung hình là bao nhiêu?">
+      <expander title="Thường bao lâu sẽ nhận được hàng?">
         <p>
-          Mỗi khung hình có giá 100.000. Đối với các đơn hàng nhỏ hơn 400.000,
-          Minapix sẽ thu thêm phí ship 40.000 cho mỗi đơn hàng.
+          Sau khi đặt hàng, bạn sẽ nhận được điện thoại xác nhận đơn hàng từ MinaPix. Ship trong vòng 48-72h kể từ khi xác nhận đơn hàng trừ các ngày lễ, Tết và các trường hợp giao thông vận tải có vấn đề.
         </p>
       </expander>
       <expander
-        title="Kích thước mỗi khung hình là bao nhiêu?"
+        title="Khung ảnh MinaPix có kích cỡ như thế nào?"
         animation="leftToRight"
       >
         <p>
-          Kích thước mỗi khung hình là 20 x 20 cm và 2 cm
+          Khung ảnh MinaPix có hình vuông, kích cỡ 25cmx25cm, dày 2cm
         </p>
       </expander>
-      <expander title="Thời gian giao hàng là bao lâu?" animation="bounceIn">
+      <expander title="Sử dụng khung ảnh MinaPix như thế nào?" animation="bounceIn">
         <p>
-          Thời gian trung bình giao hàng đối với nội thành Hà Nội và TP HCM là
-          24h, còn đối với các tỉnh sẽ là khoảng 3 ngày làm việc (không tính
-          ngày lễ và cuối tuần).
+          Mỗi khung hình MinaPix đều có sẵn băng dính phía sau, bạn chỉ việc bóc lớp băng dính đó ra để dán thẳng lên tường hoặc các bề mặt khác nhau mà không cần đóng đinh.
+Bạn nên lau sạch tường tránh để bám bụi thì băng dính sẽ chắc hơn.
         </p>
       </expander>
       <expander
-        title="Như vậy có ảnh hưởng tới tường không?"
+        title="Tôi có thể dán lên các bề mặt khác nhau không?"
+        animation="leftToRight"
+      >
+        <p>
+          Có, khung ảnh Minapix bạn có thể dán lên mọi bề mặt khác nhau như gạch ốp, tường sơn hay gỗ và các bề mặt trang trí khác nhau.
+        </p>
+      </expander>
+      <expander
+        title="Khung ảnh MinaPix có những màu gì? Trọng lượng ra sao?"
+        animation="leftToRight"
+      >
+        <p>
+          Khung ảnh của Minapix có 2 màu đen classic và trắng sữa, trọng lượng siêu nhẹ chỉ 200gram 1 khung ảnh.
+        </p>
+      </expander>
+      <expander
+        title="Tôi có thể in ảnh từ điện thoại không?"
+        animation="leftToRight"
+      >
+        <p>
+          Có, bạn có thể tải trực tiếp ảnh từ điện thoại của cá nhân, bên phía Minapix sẽ xử lý những những có nhiều điểm tối để tương đồng và sắc nét hơn.
+        </p>
+      </expander>
+      <expander
+        title="Minapix in hình như thế nào? Có bền không?"
         animation="bottomToTop"
       >
         <p>
-          Không,đa số sẽ không ảnh hưởng gì tới tường.
+          Minapix in bằng mực lazer nhiệt lên giấy Epson chống bay màu bảo hành màu sắc 10 năm.
         </p>
       </expander>
     </div>

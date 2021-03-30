@@ -4,13 +4,13 @@
       <div class="block mb-5 max-h-full">
         <youtube
           class="max-h-full"
-          :video-id="'TDhMqkiIp70'"
+          :video-id="'r-xTI_Dqhqg'"
           :player-vars="playerVars"
           ref="youtube"
         ></youtube>
       </div>
       <vue-glide :autoplay="true" :gap="30" :animationDuration="2000">
-        <vue-glide-slide v-for="i in 7" :key="i">
+        <vue-glide-slide v-for="i in 19" :key="i">
           <img
             class="rounded-md"
             :src="require(`~/assets/images/slide/${i}.jpg`)"
