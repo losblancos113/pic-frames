@@ -397,7 +397,7 @@ export default {
         note: "",
         pictures: []
       },
-      price: 50000,
+      price: 90000,
       showError: false,
       loading: false,
       orderPlaced: false
@@ -405,8 +405,12 @@ export default {
   },
   computed: {
     discount: function() {
-      if (this.fileRecords && this.fileRecords.length >= 5) {
+      if (this.fileRecords && this.fileRecords.length > 6) {
         return 0.05;
+      } if(this.fileRecords && this.fileRecords.length > 10){
+        return 0.1
+      } if(this.fileRecords && this.fileRecords.length > 20){
+        return 0.15
       } else {
         return 1;
       }
