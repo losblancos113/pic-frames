@@ -96,6 +96,7 @@
                 >FAQ</a
               >
               <a
+                @click="showContactDialog"
                 href="#"
                 class="text-gray-900 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >Liên hệ</a
@@ -132,6 +133,7 @@
           >FAQ</a
         >
         <a
+          @click="showContactDialog"
           href="#"
           class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >Liên hệ</a
@@ -140,14 +142,16 @@
     </div>
 
     <FaqComponent />
+    <contact-component />
   </nav>
 </template>
 
 <script>
 import FaqComponent from "../components/faq.vue";
+import ContactComponent from "../components/contact.vue";
 export default {
   name: "Navbar",
-  components: { FaqComponent },
+  components: { FaqComponent, ContactComponent },
   data() {
     return {
       openMenu: false,
@@ -160,6 +164,9 @@ export default {
     },
     showFaqDialog() {
       this.$modal.show("faq-modal");
+    },
+    showContactDialog() {
+      this.$modal.show("contact-modal");
     },
     navigateToUploadPage() {
       this.$router.push({ name: "upload" });

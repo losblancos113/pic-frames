@@ -26,6 +26,7 @@
           @beforedelete="onBeforeDelete($event)"
           @select="filesSelected($event)"
           ref="imgFileAgent"
+          :helpText="'Chọn ảnh hoặc kéo thả vào đây'"
         ></vue-file-agent>
       </div>
       <button
@@ -146,29 +147,6 @@
                           ></textarea>
                           <p
                             v-if="!form.address"
-                            class="text-red-500 text-xs italic"
-                          >
-                            Không được bỏ trống
-                          </p>
-                        </div>
-                      </div>
-                      <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                          <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-email"
-                          >
-                            Email
-                          </label>
-                          <input
-                            :class="{ 'border-red-500': !form.email }"
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-email"
-                            type="email"
-                            v-model.trim="form.email"
-                          />
-                          <p
-                            v-if="!form.email"
                             class="text-red-500 text-xs italic"
                           >
                             Không được bỏ trống
@@ -393,7 +371,6 @@ export default {
         name: "",
         phone: "",
         address: "",
-        email: "",
         note: "",
         pictures: []
       },
@@ -407,10 +384,12 @@ export default {
     discount: function() {
       if (this.fileRecords && this.fileRecords.length > 6) {
         return 0.05;
-      } if(this.fileRecords && this.fileRecords.length > 10){
-        return 0.1
-      } if(this.fileRecords && this.fileRecords.length > 20){
-        return 0.15
+      }
+      if (this.fileRecords && this.fileRecords.length > 10) {
+        return 0.1;
+      }
+      if (this.fileRecords && this.fileRecords.length > 20) {
+        return 0.15;
       } else {
         return 1;
       }
@@ -492,7 +471,6 @@ export default {
       }
       if (this.form.phone) return false;
       if (this.form.address) return false;
-      if (this.form.email) return false;
       return true;
     }
   }
